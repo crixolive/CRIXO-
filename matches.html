@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CRIXO Matches - Cricket Fixtures & Results</title>
+
+<meta name="description" content="CRIXO cricket matches, fixtures, upcoming matches, live matches and results.">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --navy:#071a2f;
+  --blue:#0b355c;
+  --green:#19c37d;
+  --red:#ef4444;
+  --bg:#f4f6f8;
+  --white:#fff;
+  --text:#111827;
+  --muted:#64748b;
+  --border:#e5e7eb;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* HEADER */
+
+header{
+  background:var(--navy);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.header{
+  max-width:1250px;
+  margin:auto;
+  min-height:65px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:29px;
+  font-weight:900;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  color:#dbeafe;
+  font-size:14px;
+  font-weight:bold;
+}
+
+nav a:hover{
+  color:var(--green);
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  padding:38px 18px;
+}
+
+.hero-inner{
+  max-width:1250px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:38px;
+  margin-bottom:7px;
+}
+
+.hero p{
+  color:#cbd5e1;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:25px 18px;
+}
+
+/* FILTERS */
+
+.filters{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.filter{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:10px 19px;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.filter.active{
+  background:var(--navy);
+  color:white;
+}
+
+/* DATE */
+
+.date-section{
+  margin-top:28px;
+}
+
+.date-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.date-title h2{
+  font-size:21px;
+}
+
+.date-title span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* MATCH GRID */
+
+.match-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.match-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.card-header{
+  background:#f8fafc;
+  padding:12px 15px;
+  border-bottom:1px solid var(--border);
+}
+
+.series{
+  font-size:11px;
+  color:#0b63ce;
+  font-weight:bold;
+}
+
+.match-type{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.card-body{
+  padding:18px 16px;
+}
+
+.team{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:12px 0;
+  font-weight:800;
+}
+
+.team-name{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.flag{
+  font-size:22px;
+}
+
+.score{
+  font-weight:900;
+}
+
+.vs{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:bold;
+}
+
+.status{
+  margin-top:16px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  font-size:12px;
+  font-weight:bold;
+  color:var(--muted);
+}
+
+.status.live{
+  color:var(--red);
+}
+
+.status.upcoming{
+  color:#0b63ce;
+}
+
+.status.result{
+  color:var(--green);
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:45px;
+  background:var(--navy);
+  color:#cbd5e1;
+  padding:35px 18px;
+  text-align:center;
+}
+
+.footer-logo{
+  color:white;
+  font-size:25px;
+  font-weight:900;
+}
+
+.footer-logo span{
+  color:var(--green);
+}
+
+.copyright{
+  margin-top:12px;
+  font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  nav{
+    display:none;
+  }
+
+  .match-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  .container{
+    padding:20px 13px;
+  }
+
+  .match-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+CRI<span>XO</span>
+</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="live.html">Live</a>
+<a href="matches.html">Matches</a>
+<a href="news.html">News</a>
+<a href="teams.html">Teams</a>
+<a href="players.html">Players</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<h1>Cricket Matches</h1>
+
+<p>
+Live matches, upcoming fixtures and completed results
+</p>
+
+</div>
+
+</section>
+
+
+<main class="container">
+
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<div class="filter active">
+All
+</div>
+
+<div class="filter">
+Live
+</div>
+
+<div class="filter">
+Upcoming
+</div>
+
+<div class="filter">
+Results
+</div>
+
+<div class="filter">
+International
+</div>
+
+<div class="filter">
+T20
+</div>
+
+<div class="filter">
+ODI
+</div>
+
+<div class="filter">
+Test
+</div>
+
+</div>
+
+
+<!-- LIVE -->
+
+<section class="date-section">
+
+<div class="date-title">
+
+<h2>🔴 Live Matches</h2>
+
+<span>Today</span>
+
+</div>
+
+
+<div class="match-grid">
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+International T20
+</div>
+
+<div class="match-type">
+1st T20I
+</div>
+
+</div>
+
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+<span class="flag">🇮🇳</span>
+India
+</div>
+
+<div class="score">
+145/4
+</div>
+
+</div>
+
+
+<div class="vs">
+16.2 OVERS
+</div>
+
+
+<div class="team">
+
+<div class="team-name">
+<span class="flag">🇦🇺</span>
+Australia
+</div>
+
+<div class="score">
+—
+</div>
+
+</div>
+
+
+<div class="status live">
+● LIVE • India batting
+</div>
+
+</div>
+
+</div>
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+IPL
+</div>
+
+<div class="match-type">
+League Match
+</div>
+
+</div>
+
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+<span class="flag">🔴</span>
+RCB
+</div>
+
+<div class="score">
+178/6
+</div>
+
+</div>
+
+
+<div class="vs">
+20 OVERS
+</div>
+
+
+<div class="team">
+
+<div class="team-name">
+<span class="flag">🟡</span>
+CSK
+</div>
+
+<div class="score">
+132/4
+</div>
+
+</div>
+
+
+<div class="status live">
+● LIVE • CSK batting
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- UPCOMING -->
+
+<section class="date-section">
+
+<div class="date-title">
+
+<h2>📅 Upcoming Matches</h2>
+
+<span>Next 7 Days</span>
+
+</div>
+
+
+<div class="match-grid">
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+International T20
+</div>
+
+<div class="match-type">
+2nd T20I
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🇮🇳 India
+</div>
+
+</div>
+
+<div class="vs">
+VS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🇦🇺 Australia
+</div>
+
+</div>
+
+<div class="status upcoming">
+Tomorrow • 7:30 PM
+</div>
+
+</div>
+
+</div>
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+IPL
+</div>
+
+<div class="match-type">
+League Match
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🔵 MI
+</div>
+
+</div>
+
+<div class="vs">
+VS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🟣 KKR
+</div>
+
+</div>
+
+<div class="status upcoming">
+Tomorrow • 8:00 PM
+</div>
+
+</div>
+
+</div>
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+ODI Series
+</div>
+
+<div class="match-type">
+1st ODI
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🏴 England
+</div>
+
+</div>
+
+<div class="vs">
+VS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🇿🇦 South Africa
+</div>
+
+</div>
+
+<div class="status upcoming">
+Friday • 2:00 PM
+</div>
+
+</div>
+
+</div>
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+Test Series
+</div>
+
+<div class="match-type">
+1st Test
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🇳🇿 New Zealand
+</div>
+
+</div>
+
+<div class="vs">
+VS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🇱🇰 Sri Lanka
+</div>
+
+</div>
+
+<div class="status upcoming">
+Saturday • 10:00 AM
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- RESULTS -->
+
+<section class="date-section">
+
+<div class="date-title">
+
+<h2>✅ Recent Results</h2>
+
+<span>Completed</span>
+
+</div>
+
+
+<div class="match-grid">
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+T20 International
+</div>
+
+<div class="match-type">
+Final
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🇮🇳 India
+</div>
+
+<div class="score">
+185/6
+</div>
+
+</div>
+
+<div class="vs">
+20 OVERS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🇵🇰 Pakistan
+</div>
+
+<div class="score">
+172/9
+</div>
+
+</div>
+
+<div class="status result">
+India won by 13 runs
+</div>
+
+</div>
+
+</div>
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+ODI
+</div>
+
+<div class="match-type">
+Final
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🇦🇺 Australia
+</div>
+
+<div class="score">
+278/7
+</div>
+
+</div>
+
+<div class="vs">
+50 OVERS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🏴 England
+</div>
+
+<div class="score">
+271
+</div>
+
+</div>
+
+<div class="status result">
+Australia won by 7 runs
+</div>
+
+</div>
+
+</div>
+
+
+<div class="match-card">
+
+<div class="card-header">
+
+<div class="series">
+T20 League
+</div>
+
+<div class="match-type">
+Final
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="team">
+
+<div class="team-name">
+🔵 MI
+</div>
+
+<div class="score">
+165/5
+</div>
+
+</div>
+
+<div class="vs">
+20 OVERS
+</div>
+
+<div class="team">
+
+<div class="team-name">
+🟣 KKR
+</div>
+
+<div class="score">
+166/4
+</div>
+
+</div>
+
+<div class="status result">
+KKR won by 6 wickets
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-logo">
+CRI<span>XO</span>
+</div>
+
+<p>
+Premium Cricket News & Records
+</p>
+
+<div class="copyright">
+© 2026 CRIXO. All rights reserved.
+</div>
+
+</footer>
+
+
+</body>
+</html>
