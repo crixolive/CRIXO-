@@ -1,8 +1,7 @@
-// CRIXO Supabase Configuration
+const SUPABASE_URL = "https://mjomdsoqadfydtcckpaf.supabase.co";
 
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
-
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY_HERE";
+const SUPABASE_ANON_KEY =
+  "sb_publishable_7HQM4wnbLuD1cKmA3YG1tQ_wpFKM-oX";
 
 const supabaseClient = supabase.createClient(
   SUPABASE_URL,
