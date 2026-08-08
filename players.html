@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CRIXO Players - Cricket Player Profiles & Stats</title>
+
+<meta name="description" content="CRIXO cricket player profiles, batting, bowling statistics, teams and career records.">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --navy:#071a2f;
+  --blue:#0b355c;
+  --green:#19c37d;
+  --bg:#f4f6f8;
+  --white:#fff;
+  --text:#111827;
+  --muted:#64748b;
+  --border:#e5e7eb;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* HEADER */
+
+header{
+  background:var(--navy);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.header{
+  max-width:1250px;
+  margin:auto;
+  min-height:65px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:29px;
+  font-weight:900;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  color:#dbeafe;
+  font-size:14px;
+  font-weight:bold;
+}
+
+nav a:hover{
+  color:var(--green);
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  padding:40px 18px;
+}
+
+.hero-inner{
+  max-width:1250px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:38px;
+  margin-bottom:7px;
+}
+
+.hero p{
+  color:#cbd5e1;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:25px 18px;
+}
+
+/* SEARCH */
+
+.player-search{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:20px;
+}
+
+.player-search input{
+  width:100%;
+  padding:13px 15px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  outline:none;
+  font-size:14px;
+}
+
+.player-search input:focus{
+  border-color:var(--green);
+}
+
+/* FILTER */
+
+.filters{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.filter{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:10px 18px;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.filter.active{
+  background:var(--navy);
+  color:white;
+}
+
+/* SECTION */
+
+.section{
+  margin-top:30px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.section-title h2{
+  font-size:23px;
+}
+
+/* PLAYER GRID */
+
+.player-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.player-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px 15px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+  transition:.2s;
+}
+
+.player-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 7px 20px rgba(0,0,0,.1);
+}
+
+.player-photo{
+  width:90px;
+  height:90px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(135deg,#dbeafe,#dcfce7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:45px;
+  margin-bottom:12px;
+}
+
+.player-card h3{
+  font-size:17px;
+  margin-bottom:4px;
+}
+
+.player-role{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.player-team{
+  display:inline-block;
+  margin-top:10px;
+  background:#ecfdf5;
+  color:#047857;
+  border-radius:15px;
+  padding:5px 10px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+/* STATS */
+
+.stats-box{
+  margin-top:30px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.stats-title{
+  padding:17px;
+  font-size:19px;
+  font-weight:900;
+  border-bottom:1px solid var(--border);
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  min-width:650px;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:13px;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+
+th{
+  background:#f8fafc;
+  color:var(--muted);
+  font-size:11px;
+}
+
+th:not(:first-child),
+td:not(:first-child){
+  text-align:center;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:45px;
+  background:var(--navy);
+  color:#cbd5e1;
+  padding:35px 18px;
+  text-align:center;
+}
+
+.footer-logo{
+  color:white;
+  font-size:25px;
+  font-weight:900;
+}
+
+.footer-logo span{
+  color:var(--green);
+}
+
+.copyright{
+  margin-top:12px;
+  font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+  nav{
+    display:none;
+  }
+
+  .player-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+@media(max-width:650px){
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  .player-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .container{
+    padding:20px 13px;
+  }
+
+}
+
+@media(max-width:400px){
+
+  .player-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+CRI<span>XO</span>
+</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="live.html">Live</a>
+<a href="matches.html">Matches</a>
+<a href="news.html">News</a>
+<a href="teams.html">Teams</a>
+<a href="players.html">Players</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<h1>Cricket Players</h1>
+
+<p>
+Player profiles, career statistics and cricket records
+</p>
+
+</div>
+
+</section>
+
+
+<main class="container">
+
+
+<!-- SEARCH -->
+
+<div class="player-search">
+
+<input
+type="search"
+placeholder="🔍 Search player..."
+>
+
+</div>
+
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<div class="filter active">
+All Players
+</div>
+
+<div class="filter">
+Batter
+</div>
+
+<div class="filter">
+Bowler
+</div>
+
+<div class="filter">
+All-Rounder
+</div>
+
+<div class="filter">
+Wicketkeeper
+</div>
+
+</div>
+
+
+<!-- FEATURED PLAYERS -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>⭐ Popular Players</h2>
+
+</div>
+
+
+<div class="player-grid">
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+🏏
+</div>
+
+<h3>Virat Kohli</h3>
+
+<p class="player-role">
+Batter
+</p>
+
+<span class="player-team">
+🇮🇳 INDIA
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+🏏
+</div>
+
+<h3>Rohit Sharma</h3>
+
+<p class="player-role">
+Batter
+</p>
+
+<span class="player-team">
+🇮🇳 INDIA
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+⭐
+</div>
+
+<h3>Jasprit Bumrah</h3>
+
+<p class="player-role">
+Bowler
+</p>
+
+<span class="player-team">
+🇮🇳 INDIA
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+🏏
+</div>
+
+<h3>Shubman Gill</h3>
+
+<p class="player-role">
+Batter
+</p>
+
+<span class="player-team">
+🇮🇳 INDIA
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+🏏
+</div>
+
+<h3>Babar Azam</h3>
+
+<p class="player-role">
+Batter
+</p>
+
+<span class="player-team">
+🇵🇰 PAKISTAN
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+⚡
+</div>
+
+<h3>Pat Cummins</h3>
+
+<p class="player-role">
+Bowler
+</p>
+
+<span class="player-team">
+🇦🇺 AUSTRALIA
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+🏏
+</div>
+
+<h3>Joe Root</h3>
+
+<p class="player-role">
+Batter
+</p>
+
+<span class="player-team">
+🏴 ENGLAND
+</span>
+
+</a>
+
+
+<a href="#" class="player-card">
+
+<div class="player-photo">
+🔥
+</div>
+
+<h3>Ben Stokes</h3>
+
+<p class="player-role">
+All-Rounder
+</p>
+
+<span class="player-team">
+🏴 ENGLAND
+</span>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- PLAYER STATS -->
+
+<section class="stats-box">
+
+<div class="stats-title">
+📊 Top Player Statistics
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Player</th>
+<th>Team</th>
+<th>Matches</th>
+<th>Runs</th>
+<th>Average</th>
+<th>100s</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+<td>Virat Kohli</td>
+<td>India</td>
+<td>280+</td>
+<td>27000+</td>
+<td>54+</td>
+<td>80+</td>
+</tr>
+
+<tr>
+<td>Joe Root</td>
+<td>England</td>
+<td>350+</td>
+<td>20000+</td>
+<td>49+</td>
+<td>50+</td>
+</tr>
+
+<tr>
+<td>Babar Azam</td>
+<td>Pakistan</td>
+<td>300+</td>
+<td>15000+</td>
+<td>45+</td>
+<td>30+</td>
+</tr>
+
+<tr>
+<td>Rohit Sharma</td>
+<td>India</td>
+<td>480+</td>
+<td>19000+</td>
+<td>42+</td>
+<td>50+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-logo">
+CRI<span>XO</span>
+</div>
+
+<p>
+Premium Cricket News & Records
+</p>
+
+<div class="copyright">
+© 2026 CRIXO. All rights reserved.
+</div>
+
+</footer>
+
+
+</body>
+</html>
