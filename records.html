@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CRIXO Records - Cricket Records & Statistics</title>
+
+<meta name="description" content="CRIXO cricket records, statistics, batting records, bowling records and team records.">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --navy:#071a2f;
+  --blue:#0b355c;
+  --green:#19c37d;
+  --bg:#f4f6f8;
+  --white:#fff;
+  --text:#111827;
+  --muted:#64748b;
+  --border:#e5e7eb;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* HEADER */
+
+header{
+  background:var(--navy);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.header{
+  max-width:1250px;
+  margin:auto;
+  min-height:65px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:29px;
+  font-weight:900;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  color:#dbeafe;
+  font-size:14px;
+  font-weight:bold;
+}
+
+nav a:hover{
+  color:var(--green);
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  padding:40px 18px;
+}
+
+.hero-inner{
+  max-width:1250px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:38px;
+  margin-bottom:7px;
+}
+
+.hero p{
+  color:#cbd5e1;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:25px 18px;
+}
+
+/* FILTERS */
+
+.filters{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.filter{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:10px 18px;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.filter.active{
+  background:var(--navy);
+  color:white;
+}
+
+/* SECTION */
+
+.section{
+  margin-top:30px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.section-title h2{
+  font-size:23px;
+}
+
+/* RECORD CARDS */
+
+.record-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.record-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.record-icon{
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+.record-card h3{
+  font-size:17px;
+  margin-bottom:8px;
+}
+
+.record-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.record-value{
+  margin-top:15px;
+  padding-top:13px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.record-value strong{
+  font-size:21px;
+}
+
+.record-value span{
+  color:#0b63ce;
+  font-size:11px;
+  font-weight:bold;
+}
+
+/* TABLE */
+
+.table-box{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.table-title{
+  padding:17px;
+  font-size:19px;
+  font-weight:900;
+  border-bottom:1px solid var(--border);
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  min-width:650px;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:13px;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+
+th{
+  background:#f8fafc;
+  color:var(--muted);
+  font-size:11px;
+}
+
+th:not(:first-child),
+td:not(:first-child){
+  text-align:center;
+}
+
+/* FEATURE */
+
+.feature{
+  margin-top:30px;
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  border-radius:15px;
+  padding:25px;
+}
+
+.feature h2{
+  font-size:23px;
+  margin-bottom:8px;
+}
+
+.feature p{
+  color:#cbd5e1;
+  font-size:14px;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:45px;
+  background:var(--navy);
+  color:#cbd5e1;
+  padding:35px 18px;
+  text-align:center;
+}
+
+.footer-logo{
+  color:white;
+  font-size:25px;
+  font-weight:900;
+}
+
+.footer-logo span{
+  color:var(--green);
+}
+
+.copyright{
+  margin-top:12px;
+  font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  nav{
+    display:none;
+  }
+
+  .record-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  .record-grid{
+    grid-template-columns:1fr;
+  }
+
+  .container{
+    padding:20px 13px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+CRI<span>XO</span>
+</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="live.html">Live</a>
+<a href="matches.html">Matches</a>
+<a href="news.html">News</a>
+<a href="teams.html">Teams</a>
+<a href="players.html">Players</a>
+<a href="series.html">Series</a>
+<a href="records.html">Records</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<h1>Cricket Records</h1>
+
+<p>
+Explore legendary batting, bowling and team records
+</p>
+
+</div>
+
+</section>
+
+
+<main class="container">
+
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<div class="filter active">
+All Records
+</div>
+
+<div class="filter">
+Batting
+</div>
+
+<div class="filter">
+Bowling
+</div>
+
+<div class="filter">
+Team
+</div>
+
+<div class="filter">
+Test
+</div>
+
+<div class="filter">
+ODI
+</div>
+
+<div class="filter">
+T20I
+</div>
+
+</div>
+
+
+<!-- RECORD CATEGORIES -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>🏏 Batting Records</h2>
+
+</div>
+
+
+<div class="record-grid">
+
+
+<div class="record-card">
+
+<div class="record-icon">
+🔥
+</div>
+
+<h3>
+Most International Runs
+</h3>
+
+<p>
+Highest aggregate runs across international cricket.
+</p>
+
+<div class="record-value">
+
+<strong>
+Virat Kohli
+</strong>
+
+<span>
+Legend
+</span>
+
+</div>
+
+</div>
+
+
+<div class="record-card">
+
+<div class="record-icon">
+💯
+</div>
+
+<h3>
+Most International Centuries
+</h3>
+
+<p>
+Players with the highest number of international hundreds.
+</p>
+
+<div class="record-value">
+
+<strong>
+100+ Club
+</strong>
+
+<span>
+Record
+</span>
+
+</div>
+
+</div>
+
+
+<div class="record-card">
+
+<div class="record-icon">
+⚡
+</div>
+
+<h3>
+Fastest Century
+</h3>
+
+<p>
+One of the most exciting records in limited-overs cricket.
+</p>
+
+<div class="record-value">
+
+<strong>
+Fast 100
+</strong>
+
+<span>
+T20 / ODI
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- BOWLING -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>🎯 Bowling Records</h2>
+
+</div>
+
+
+<div class="record-grid">
+
+
+<div class="record-card">
+
+<div class="record-icon">
+🎯
+</div>
+
+<h3>
+Most International Wickets
+</h3>
+
+<p>
+Top wicket-takers across international cricket.
+</p>
+
+<div class="record-value">
+
+<strong>
+800+
+</strong>
+
+<span>
+Wickets
+</span>
+
+</div>
+
+</div>
+
+
+<div class="record-card">
+
+<div class="record-icon">
+🔥
+</div>
+
+<h3>
+Best Bowling Figures
+</h3>
+
+<p>
+Outstanding bowling performances in international cricket.
+</p>
+
+<div class="record-value">
+
+<strong>
+10 Wickets
+</strong>
+
+<span>
+Match
+</span>
+
+</div>
+
+</div>
+
+
+<div class="record-card">
+
+<div class="record-icon">
+⚡
+</div>
+
+<h3>
+Most T20I Wickets
+</h3>
+
+<p>
+Leading wicket-takers in T20 international cricket.
+</p>
+
+<div class="record-value">
+
+<strong>
+100+
+</strong>
+
+<span>
+T20I
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- TABLE -->
+
+<section class="section">
+
+<div class="table-box">
+
+<div class="table-title">
+📊 Famous Cricket Records
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Record</th>
+<th>Player / Team</th>
+<th>Format</th>
+<th>Achievement</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+<td>Most International Runs</td>
+<td>Top Run Scorer</td>
+<td>All</td>
+<td>20,000+</td>
+</tr>
+
+<tr>
+<td>Most International Hundreds</td>
+<td>Top Run Scorer</td>
+<td>All</td>
+<td>100+</td>
+</tr>
+
+<tr>
+<td>Most ODI Hundreds</td>
+<td>Top ODI Batter</td>
+<td>ODI</td>
+<td>40+</td>
+</tr>
+
+<tr>
+<td>Most International Wickets</td>
+<td>Top Wicket Taker</td>
+<td>All</td>
+<td>800+</td>
+</tr>
+
+<tr>
+<td>Most T20I Wickets</td>
+<td>Top T20I Bowler</td>
+<td>T20I</td>
+<td>100+</td>
+</tr>
+
+<tr>
+<td>Highest Team Total</td>
+<td>International Team</td>
+<td>ODI</td>
+<td>450+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURE -->
+
+<section class="feature">
+
+<h2>
+CRIXO Records Centre
+</h2>
+
+<p>
+Explore batting records, bowling records, team records,
+individual achievements and format-wise cricket statistics.
+Live and verified cricket data will be connected in the
+next development stage.
+</p>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-logo">
+CRI<span>XO</span>
+</div>
+
+<p>
+Premium Cricket News & Records
+</p>
+
+<div class="copyright">
+© 2026 CRIXO. All rights reserved.
+</div>
+
+</footer>
+
+
+</body>
+</html>
