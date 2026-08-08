@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CRIXO Teams - Cricket Teams</title>
+
+  <meta name="description"
+    content="CRIXO cricket teams, international teams and popular T20 league teams.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #071a2f;
+      --blue: #0b355c;
+      --green: #19c37d;
+      --bg: #f4f6f8;
+      --white: #ffffff;
+      --text: #111827;
+      --muted: #64748b;
+      --border: #e5e7eb;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+
+    header {
+      background: var(--navy);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header {
+      max-width: 1250px;
+      margin: auto;
+      min-height: 65px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 29px;
+      font-weight: 900;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #dbeafe;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--green);
+    }
+
+    /* HERO */
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      padding: 40px 18px;
+    }
+
+    .hero-inner {
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 7px;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+    }
+
+    /* CONTAINER */
+
+    .container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    /* FILTER */
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .filter {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 10px 18px;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .filter.active {
+      background: var(--navy);
+      color: white;
+    }
+
+    /* SECTION */
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title h2 {
+      font-size: 23px;
+    }
+
+    /* TEAM GRID */
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .team-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 15px;
+      text-align: center;
+      transition: 0.2s;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .team-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(0,0,0,.1);
+    }
+
+    .team-logo {
+      width: 75px;
+      height: 75px;
+      margin: auto;
+      border-radius: 50%;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 13px;
+    }
+
+    .team-card h3 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .team-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .team-type {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 9px;
+      background: #ecfdf5;
+      color: #047857;
+      border-radius: 15px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    /* FEATURE */
+
+    .feature {
+      margin-top: 30px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .feature h2 {
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 45px;
+      background: var(--navy);
+      color: #cbd5e1;
+      padding: 35px 18px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .footer-logo span {
+      color: var(--green);
+    }
+
+    .copyright {
+      margin-top: 12px;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 950px) {
+      nav {
+        display: none;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .container {
+        padding: 20px 13px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="header">
+
+      <a href="index.html" class="logo">
+        CRI<span>XO</span>
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="live.html">Live</a>
+        <a href="matches.html">Matches</a>
+        <a href="news.html">News</a>
+        <a href="teams.html">Teams</a>
+        <a href="players.html">Players</a>
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-inner">
+
+      <h1>Cricket Teams</h1>
+
+      <p>
+        Explore international and T20 cricket teams
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <main class="container">
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+      <div class="filter active">
+        All Teams
+      </div>
+
+      <div class="filter">
+        International
+      </div>
+
+      <div class="filter">
+        Test
+      </div>
+
+      <div class="filter">
+        ODI
+      </div>
+
+      <div class="filter">
+        T20
+      </div>
+
+      <div class="filter">
+        IPL
+      </div>
+
+    </div>
+
+
+    <!-- INTERNATIONAL -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>🌍 International Teams</h2>
+
+      </div>
+
+
+      <div class="team-grid">
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇮🇳
+          </div>
+
+          <h3>India</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇦🇺
+          </div>
+
+          <h3>Australia</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🏴
+          </div>
+
+          <h3>England</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇵🇰
+          </div>
+
+          <h3>Pakistan</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇿🇦
+          </div>
+
+          <h3>South Africa</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇳🇿
+          </div>
+
+          <h3>New Zealand</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇱🇰
+          </div>
+
+          <h3>Sri Lanka</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇧🇩
+          </div>
+
+          <h3>Bangladesh</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🇦🇫
+          </div>
+
+          <h3>Afghanistan</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            ODI • T20I
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🌴
+          </div>
+
+          <h3>West Indies</h3>
+
+          <p>International</p>
+
+          <span class="team-type">
+            TEST • ODI • T20I
+          </span>
+
+        </a>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- IPL -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>🔥 IPL Teams</h2>
+
+      </div>
+
+
+      <div class="team-grid">
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🔴
+          </div>
+
+          <h3>Royal Challengers Bengaluru</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🟡
+          </div>
+
+          <h3>Chennai Super Kings</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🔵
+          </div>
+
+          <h3>Mumbai Indians</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🟣
+          </div>
+
+          <h3>Kolkata Knight Riders</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🟠
+          </div>
+
+          <h3>Sunrisers Hyderabad</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🩷
+          </div>
+
+          <h3>Rajasthan Royals</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🔵
+          </div>
+
+          <h3>Delhi Capitals</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+        <a href="#" class="team-card">
+
+          <div class="team-logo">
+            🟢
+          </div>
+
+          <h3>Lucknow Super Giants</h3>
+
+          <p>IPL</p>
+
+          <span class="team-type">
+            T20
+          </span>
+
+        </a>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- INFO -->
+
+    <section class="feature">
+
+      <h2>CRIXO Team Centre</h2>
+
+      <p>
+        Explore team profiles, squads, fixtures, results,
+        player statistics and cricket records. Team pages
+        will be connected to live cricket data in the next
+        development stage.
+      </p>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-logo">
+      CRI<span>XO</span>
+    </div>
+
+    <p>
+      Premium Cricket News & Records
+    </p>
+
+    <div class="copyright">
+      © 2026 CRIXO. All rights reserved.
+    </div>
+
+  </footer>
+
+
+</body>
+</html>
