@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CRIXO - Manage Articles</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --navy:#071a2f;
+  --blue:#0b355c;
+  --green:#19c37d;
+  --red:#ef4444;
+  --orange:#f59e0b;
+  --bg:#f4f6f8;
+  --white:#fff;
+  --text:#111827;
+  --muted:#64748b;
+  --border:#e5e7eb;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:235px;
+  height:100vh;
+  background:var(--navy);
+  color:white;
+  padding:20px 15px;
+}
+
+.logo{
+  font-size:27px;
+  font-weight:900;
+  padding:10px;
+  margin-bottom:25px;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+.menu-title{
+  color:#94a3b8;
+  font-size:10px;
+  font-weight:bold;
+  padding:0 10px;
+  margin-bottom:10px;
+}
+
+.menu a{
+  display:block;
+  color:#cbd5e1;
+  padding:12px 10px;
+  border-radius:8px;
+  margin-bottom:4px;
+  font-size:13px;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.menu a:hover,
+.menu a.active{
+  background:var(--blue);
+  color:white;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:235px;
+  padding:25px;
+}
+
+.topbar{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:17px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.topbar h1{
+  font-size:22px;
+}
+
+.add-btn{
+  background:var(--green);
+  color:white;
+  padding:11px 16px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:15px;
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+}
+
+.search{
+  flex:1;
+}
+
+.search input,
+select{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  outline:none;
+  font-size:13px;
+}
+
+.search input:focus,
+select:focus{
+  border-color:var(--green);
+}
+
+select{
+  max-width:180px;
+}
+
+/* TABLE */
+
+.table-box{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-top:20px;
+  overflow:hidden;
+}
+
+.table-title{
+  padding:17px;
+  border-bottom:1px solid var(--border);
+  font-weight:900;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  min-width:800px;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:12px;
+}
+
+th{
+  background:#f8fafc;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+}
+
+.article-title{
+  font-weight:bold;
+}
+
+.category{
+  color:#0b63ce;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:15px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.published{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.draft{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.actions{
+  display:flex;
+  gap:6px;
+}
+
+.action{
+  border:none;
+  border-radius:6px;
+  padding:7px 10px;
+  font-size:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.edit{
+  background:#e0f2fe;
+  color:#075985;
+}
+
+.delete{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.view{
+  background:#f1f5f9;
+  color:#334155;
+}
+
+/* PAGINATION */
+
+.pagination{
+  padding:16px;
+  display:flex;
+  justify-content:center;
+  gap:7px;
+}
+
+.page{
+  border:1px solid var(--border);
+  background:white;
+  padding:8px 12px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.page.active{
+  background:var(--navy);
+  color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .sidebar{
+    width:65px;
+    padding:15px 8px;
+  }
+
+  .logo{
+    font-size:20px;
+    padding:8px 4px;
+  }
+
+  .menu-title{
+    display:none;
+  }
+
+  .menu a{
+    font-size:0;
+    text-align:center;
+  }
+
+  .main{
+    margin-left:65px;
+    padding:15px;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .main{
+    padding:10px;
+  }
+
+  .topbar{
+    gap:12px;
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .toolbar{
+    flex-direction:column;
+  }
+
+  select{
+    max-width:none;
+  }
+
+  .add-btn{
+    width:100%;
+    text-align:center;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+CRI<span>XO</span>
+</div>
+
+<div class="menu-title">
+ADMIN PANEL
+</div>
+
+<div class="menu">
+
+<a href="admin.html">
+🏠 Dashboard
+</a>
+
+<a href="article-list.html" class="active">
+📰 Articles
+</a>
+
+<a href="article-editor.html">
+➕ Add Article
+</a>
+
+<a href="#">
+🏏 Matches
+</a>
+
+<a href="#">
+👥 Players
+</a>
+
+<a href="#">
+🏆 Series
+</a>
+
+<a href="#">
+⚙️ Settings
+</a>
+
+</div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Manage Articles
+</h1>
+
+<a href="article-editor.html" class="add-btn">
+＋ Add New Article
+</a>
+
+</div>
+
+
+<!-- TOOLBAR -->
+
+<div class="toolbar">
+
+<div class="search">
+
+<input
+type="search"
+placeholder="🔍 Search articles..."
+>
+
+</div>
+
+<select>
+
+<option>
+All Categories
+</option>
+
+<option>
+Cricket
+</option>
+
+<option>
+IPL
+</option>
+
+<option>
+India
+</option>
+
+<option>
+International
+</option>
+
+<option>
+Players
+</option>
+
+<option>
+Records
+</option>
+
+</select>
+
+
+<select>
+
+<option>
+All Status
+</option>
+
+<option>
+Published
+</option>
+
+<option>
+Draft
+</option>
+
+</select>
+
+</div>
+
+
+<!-- ARTICLES -->
+
+<div class="table-box">
+
+<div class="table-title">
+All Articles
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Article
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Author
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Actions
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td>
+<div class="article-title">
+Latest Cricket News & Updates
+</div>
+</td>
+
+<td>
+<span class="category">
+Cricket
+</span>
+</td>
+
+<td>
+CRIXO
+</td>
+
+<td>
+<span class="status published">
+Published
+</span>
+</td>
+
+<td>
+Today
+</td>
+
+<td>
+
+<div class="actions">
+
+<a href="article-editor.html" class="action edit">
+Edit
+</a>
+
+<button class="action delete">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<div class="article-title">
+IPL Latest Team Updates
+</div>
+</td>
+
+<td>
+<span class="category">
+IPL
+</span>
+</td>
+
+<td>
+CRIXO
+</td>
+
+<td>
+<span class="status published">
+Published
+</span>
+</td>
+
+<td>
+Today
+</td>
+
+<td>
+
+<div class="actions">
+
+<a href="article-editor.html" class="action edit">
+Edit
+</a>
+
+<button class="action delete">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<div class="article-title">
+India Cricket Team News
+</div>
+</td>
+
+<td>
+<span class="category">
+India
+</span>
+</td>
+
+<td>
+Editor
+</td>
+
+<td>
+<span class="status draft">
+Draft
+</span>
+</td>
+
+<td>
+Yesterday
+</td>
+
+<td>
+
+<div class="actions">
+
+<a href="article-editor.html" class="action edit">
+Edit
+</a>
+
+<button class="action delete">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<div class="article-title">
+Top Cricket Players & Records
+</div>
+</td>
+
+<td>
+<span class="category">
+Records
+</span>
+</td>
+
+<td>
+CRIXO
+</td>
+
+<td>
+<span class="status published">
+Published
+</span>
+</td>
+
+<td>
+Yesterday
+</td>
+
+<td>
+
+<div class="actions">
+
+<a href="article-editor.html" class="action edit">
+Edit
+</a>
+
+<button class="action delete">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<div class="article-title">
+International Cricket Updates
+</div>
+</td>
+
+<td>
+<span class="category">
+International
+</span>
+</td>
+
+<td>
+Editor
+</td>
+
+<td>
+<span class="status draft">
+Draft
+</span>
+</td>
+
+<td>
+2 days ago
+</td>
+
+<td>
+
+<div class="actions">
+
+<a href="article-editor.html" class="action edit">
+Edit
+</a>
+
+<button class="action delete">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<!-- PAGINATION -->
+
+<div class="pagination">
+
+<div class="page active">
+1
+</div>
+
+<div class="page">
+2
+</div>
+
+<div class="page">
+3
+</div>
+
+<div class="page">
+Next →
+</div>
+
+</div>
+
+</div>
+
+
+</main>
+
+</body>
+</html>
