@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CRIXO News - Latest Cricket News</title>
+
+  <meta name="description"
+    content="CRIXO latest cricket news, IPL news, international cricket updates and player news.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #071a2f;
+      --blue: #0b355c;
+      --green: #19c37d;
+      --text: #111827;
+      --muted: #64748b;
+      --bg: #f4f6f8;
+      --white: #fff;
+      --border: #e5e7eb;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+
+    header {
+      background: var(--navy);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header {
+      max-width: 1250px;
+      margin: auto;
+      min-height: 65px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 29px;
+      font-weight: 900;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #dbeafe;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--green);
+    }
+
+    /* HERO */
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      padding: 38px 18px;
+    }
+
+    .hero-inner {
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+    }
+
+    /* CONTAINER */
+
+    .container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    /* CATEGORY */
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 9px 18px;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .category:hover {
+      background: var(--navy);
+      color: white;
+    }
+
+    /* NEWS LAYOUT */
+
+    .news-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .main-news {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .main-image {
+      height: 310px;
+      background: linear-gradient(135deg, #0b355c, #19c37d);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+    }
+
+    .main-content {
+      padding: 22px;
+    }
+
+    .category-label {
+      color: #0b63ce;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .main-content h2 {
+      font-size: 28px;
+      margin: 8px 0;
+      line-height: 1.25;
+    }
+
+    .main-content p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .news-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .side-news {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .side-news:last-child {
+      border-bottom: none;
+    }
+
+    .side-news small {
+      color: #0b63ce;
+      font-weight: bold;
+      font-size: 10px;
+    }
+
+    .side-news h3 {
+      font-size: 14px;
+      margin-top: 5px;
+      line-height: 1.35;
+    }
+
+    /* SECTION */
+
+    .section {
+      margin-top: 35px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .section-title h2 {
+      font-size: 23px;
+    }
+
+    .view-all {
+      color: #0b63ce;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* NEWS GRID */
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 13px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .news-image {
+      height: 175px;
+      background: linear-gradient(135deg, #071a2f, #19c37d);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+
+    .news-content {
+      padding: 16px;
+    }
+
+    .news-content small {
+      color: #0b63ce;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .news-content h3 {
+      font-size: 17px;
+      line-height: 1.35;
+      margin: 7px 0;
+    }
+
+    .news-content p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .date {
+      display: block;
+      color: #94a3b8;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 45px;
+      background: var(--navy);
+      color: #cbd5e1;
+      padding: 35px 18px;
+    }
+
+    .footer {
+      max-width: 1250px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .footer-logo span {
+      color: var(--green);
+    }
+
+    .copyright {
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+
+      nav {
+        display: none;
+      }
+
+      .news-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .main-image {
+        height: 220px;
+      }
+
+      .main-content h2 {
+        font-size: 22px;
+      }
+
+      .container {
+        padding: 20px 13px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="header">
+
+      <a href="index.html" class="logo">
+        CRI<span>XO</span>
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="live.html">Live</a>
+        <a href="matches.html">Matches</a>
+        <a href="news.html">News</a>
+        <a href="teams.html">Teams</a>
+        <a href="players.html">Players</a>
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-inner">
+
+      <h1>Cricket News</h1>
+
+      <p>
+        Latest cricket news, breaking updates and stories
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <main class="container">
+
+
+    <!-- CATEGORIES -->
+
+    <div class="categories">
+
+      <a href="#" class="category">Latest</a>
+
+      <a href="#" class="category">India</a>
+
+      <a href="#" class="category">IPL</a>
+
+      <a href="#" class="category">International</a>
+
+      <a href="#" class="category">T20</a>
+
+      <a href="#" class="category">ODI</a>
+
+      <a href="#" class="category">Test</a>
+
+      <a href="#" class="category">Players</a>
+
+    </div>
+
+
+    <!-- FEATURED NEWS -->
+
+    <div class="news-layout">
+
+
+      <article class="main-news">
+
+        <div class="main-image">
+          🏏
+        </div>
+
+        <div class="main-content">
+
+          <div class="category-label">
+            FEATURED NEWS
+          </div>
+
+          <h2>
+            Latest Cricket Updates, Breaking News & Match Stories
+          </h2>
+
+          <p>
+            Stay updated with the latest cricket news,
+            team updates, player performances and major
+            developments from around the world.
+          </p>
+
+          <div class="news-meta">
+            CRIXO • Today
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- TRENDING -->
+
+      <aside class="sidebar">
+
+        <h2>
+          🔥 Trending News
+        </h2>
+
+
+        <article class="side-news">
+
+          <small>CRICKET</small>
+
+          <h3>
+            Major cricket updates making headlines today
+          </h3>
+
+        </article>
+
+
+        <article class="side-news">
+
+          <small>IPL</small>
+
+          <h3>
+            Latest IPL team and player developments
+          </h3>
+
+        </article>
+
+
+        <article class="side-news">
+
+          <small>INDIA</small>
+
+          <h3>
+            India's latest cricket team updates
+          </h3>
+
+        </article>
+
+
+        <article class="side-news">
+
+          <small>PLAYERS</small>
+
+          <h3>
+            Star players dominate the latest cricket news
+          </h3>
+
+        </article>
+
+
+      </aside>
+
+    </div>
+
+
+    <!-- LATEST -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>Latest News</h2>
+
+        <a href="#" class="view-all">
+          View All →
+        </a>
+
+      </div>
+
+
+      <div class="news-grid">
+
+
+        <article class="news-card">
+
+          <div class="news-image">
+            🇮🇳
+          </div>
+
+          <div class="news-content">
+
+            <small>INDIA</small>
+
+            <h3>
+              India cricket latest updates and team news
+            </h3>
+
+            <p>
+              Latest updates from the Indian cricket team.
+            </p>
+
+            <span class="date">
+              Today
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <article class="news-card">
+
+          <div class="news-image">
+            🔥
+          </div>
+
+          <div class="news-content">
+
+            <small>IPL</small>
+
+            <h3>
+              IPL latest news, matches and team updates
+            </h3>
+
+            <p>
+              Follow all the latest IPL developments.
+            </p>
+
+            <span class="date">
+              Today
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <article class="news-card">
+
+          <div class="news-image">
+            🌍
+          </div>
+
+          <div class="news-content">
+
+            <small>INTERNATIONAL</small>
+
+            <h3>
+              International cricket latest developments
+            </h3>
+
+            <p>
+              Updates from international cricket.
+            </p>
+
+            <span class="date">
+              Today
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <article class="news-card">
+
+          <div class="news-image">
+            ⭐
+          </div>
+
+          <div class="news-content">
+
+            <small>PLAYERS</small>
+
+            <h3>
+              Cricket stars and player performances
+            </h3>
+
+            <p>
+              Latest performances and player stories.
+            </p>
+
+            <span class="date">
+              Today
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <article class="news-card">
+
+          <div class="news-image">
+            🏆
+          </div>
+
+          <div class="news-content">
+
+            <small>TOURNAMENT</small>
+
+            <h3>
+              Major cricket tournament updates
+            </h3>
+
+            <p>
+              News, results and important tournament updates.
+            </p>
+
+            <span class="date">
+              Today
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <article class="news-card">
+
+          <div class="news-image">
+            📊
+          </div>
+
+          <div class="news-content">
+
+            <small>STATS</small>
+
+            <h3>
+              Cricket statistics and records
+            </h3>
+
+            <p>
+              Discover important cricket records and stats.
+            </p>
+
+            <span class="date">
+              Today
+            </span>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer">
+
+      <div class="footer-logo">
+        CRI<span>XO</span>
+      </div>
+
+      <p>
+        Premium Cricket News & Records
+      </p>
+
+      <div class="copyright">
+        © 2026 CRIXO. All rights reserved.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+</body>
+</html>
