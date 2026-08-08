@@ -6,131 +6,43 @@
 
 <title>CRIXO Article Editor</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
 <style>
 *{
-  margin:0;
-  padding:0;
   box-sizing:border-box;
 }
 
-:root{
-  --navy:#071a2f;
-  --blue:#0b355c;
-  --green:#19c37d;
-  --bg:#f4f6f8;
-  --white:#fff;
-  --text:#111827;
-  --muted:#64748b;
-  --border:#e5e7eb;
-  --red:#ef4444;
-}
-
 body{
+  margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  background:#f4f6f8;
+  color:#111827;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:235px;
-  height:100vh;
-  background:var(--navy);
+header{
+  background:#071a2f;
   color:white;
-  padding:20px 15px;
+  padding:18px 20px;
 }
 
-.logo{
-  font-size:27px;
-  font-weight:900;
-  padding:10px;
-  margin-bottom:25px;
-}
-
-.logo span{
-  color:var(--green);
-}
-
-.menu-title{
-  color:#94a3b8;
-  font-size:10px;
-  font-weight:bold;
-  padding:0 10px;
-  margin-bottom:10px;
-}
-
-.menu a{
-  display:block;
-  color:#cbd5e1;
-  padding:12px 10px;
-  border-radius:8px;
-  margin-bottom:4px;
-  font-size:13px;
-  font-weight:bold;
-  text-decoration:none;
-}
-
-.menu a:hover,
-.menu a.active{
-  background:var(--blue);
-  color:white;
-}
-
-/* MAIN */
-
-.main{
-  margin-left:235px;
-  padding:25px;
-  max-width:1250px;
-}
-
-.topbar{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:17px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.topbar h1{
+header h1{
+  margin:0;
   font-size:22px;
 }
 
-.back{
-  color:#0b63ce;
-  font-size:13px;
-  font-weight:bold;
-  text-decoration:none;
+.container{
+  max-width:900px;
+  margin:25px auto;
+  padding:0 15px;
 }
 
-/* EDITOR */
-
-.editor-layout{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:20px;
-  margin-top:20px;
-}
-
-.box{
+.card{
   background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:20px;
-}
-
-.box-title{
-  font-size:17px;
-  font-weight:900;
-  margin-bottom:18px;
-  padding-bottom:12px;
-  border-bottom:1px solid var(--border);
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
 .field{
@@ -139,120 +51,38 @@ body{
 
 label{
   display:block;
-  font-size:12px;
+  font-size:13px;
   font-weight:bold;
   margin-bottom:7px;
 }
 
 input,
-select,
-textarea{
+textarea,
+select{
   width:100%;
-  border:1px solid var(--border);
-  border-radius:8px;
   padding:12px;
+  border:1px solid #dbe1e8;
+  border-radius:8px;
+  font-size:14px;
   outline:none;
-  font-family:inherit;
-  font-size:13px;
 }
 
 input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--green);
+textarea:focus,
+select:focus{
+  border-color:#19c37d;
 }
 
 textarea{
-  min-height:280px;
+  min-height:250px;
   resize:vertical;
 }
 
-.excerpt{
-  min-height:100px;
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
-
-.slug{
-  background:#f8fafc;
-}
-
-/* IMAGE */
-
-.image-upload{
-  border:2px dashed #cbd5e1;
-  border-radius:10px;
-  padding:25px 15px;
-  text-align:center;
-  color:var(--muted);
-  cursor:pointer;
-}
-
-.image-upload:hover{
-  border-color:var(--green);
-}
-
-.image-upload input{
-  display:none;
-}
-
-.image-icon{
-  font-size:35px;
-  margin-bottom:8px;
-}
-
-/* OPTIONS */
-
-.option{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
-  font-size:13px;
-}
-
-.option:last-child{
-  border-bottom:none;
-}
-
-.switch{
-  width:42px;
-  height:23px;
-  position:relative;
-}
-
-.switch input{
-  display:none;
-}
-
-.slider{
-  position:absolute;
-  inset:0;
-  background:#cbd5e1;
-  border-radius:20px;
-  cursor:pointer;
-}
-
-.slider:before{
-  content:"";
-  position:absolute;
-  width:17px;
-  height:17px;
-  left:3px;
-  top:3px;
-  background:white;
-  border-radius:50%;
-  transition:.2s;
-}
-
-.switch input:checked + .slider{
-  background:var(--green);
-}
-
-.switch input:checked + .slider:before{
-  transform:translateX(19px);
-}
-
-/* BUTTONS */
 
 .actions{
   display:flex;
@@ -260,464 +90,448 @@ textarea{
   margin-top:20px;
 }
 
-.btn{
-  border:none;
+button{
+  border:0;
   border-radius:8px;
   padding:12px 18px;
-  font-size:13px;
   font-weight:bold;
   cursor:pointer;
 }
 
-.btn-primary{
-  background:var(--navy);
+.publish{
+  background:#19c37d;
   color:white;
 }
 
-.btn-green{
-  background:var(--green);
+.draft{
+  background:#071a2f;
   color:white;
 }
 
-.btn-light{
-  background:#f1f5f9;
-  color:var(--text);
+.logout{
+  background:#ef4444;
+  color:white;
 }
 
-.btn:hover{
-  opacity:.9;
+.message{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  font-size:13px;
 }
 
-/* SEO */
-
-.seo-box{
-  margin-top:20px;
+.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
 }
 
-.counter{
-  text-align:right;
-  color:#94a3b8;
-  font-size:10px;
-  margin-top:4px;
+.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
 }
 
-/* MOBILE */
-
-@media(max-width:900px){
-
-  .sidebar{
-    width:65px;
-    padding:15px 8px;
-  }
-
-  .logo{
-    font-size:20px;
-    padding:8px 4px;
-  }
-
-  .menu-title{
-    display:none;
-  }
-
-  .menu a{
-    font-size:0;
-    text-align:center;
-  }
-
-  .main{
-    margin-left:65px;
-    padding:15px;
-  }
-
-  .editor-layout{
+@media(max-width:650px){
+  .row{
     grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:550px){
-
-  .main{
-    padding:10px;
-  }
-
-  .topbar{
-    gap:10px;
-    align-items:flex-start;
-    flex-direction:column;
   }
 
   .actions{
     flex-direction:column;
   }
 
-  .btn{
+  button{
     width:100%;
   }
-
 }
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
+<header>
+  <h1>CRIXO — Article Editor</h1>
+</header>
 
-<aside class="sidebar">
+<div class="container">
 
-  <div class="logo">
-    CRI<span>XO</span>
-  </div>
+<div class="card">
 
-  <div class="menu-title">
-    ADMIN PANEL
-  </div>
+<form id="articleForm">
 
-  <div class="menu">
+<div class="field">
+<label>Article Title</label>
+<input
+  id="title"
+  type="text"
+  placeholder="Enter article title"
+  required
+>
+</div>
 
-    <a href="admin.html">
-      🏠 Dashboard
-    </a>
+<div class="row">
 
-    <a href="#" class="active">
-      📰 Articles
-    </a>
+<div class="field">
+<label>Category</label>
 
-    <a href="article-editor.html">
-      ➕ New Article
-    </a>
+<select id="category" required>
+<option value="">Loading categories...</option>
+</select>
 
-    <a href="#">
-      🏏 Matches
-    </a>
+</div>
 
-    <a href="#">
-      👥 Players
-    </a>
+<div class="field">
+<label>Image URL</label>
 
-    <a href="#">
-      🏆 Series
-    </a>
+<input
+  id="image_url"
+  type="url"
+  placeholder="https://example.com/image.jpg"
+>
 
-    <a href="#">
-      ⚙️ Settings
-    </a>
+</div>
 
-  </div>
+</div>
 
-</aside>
+<div class="field">
+<label>Short Description</label>
 
+<textarea
+  id="excerpt"
+  style="min-height:100px"
+  placeholder="Write short description..."
+></textarea>
 
-<!-- MAIN -->
+</div>
 
-<main class="main">
+<div class="field">
+<label>Article Content</label>
 
-  <div class="topbar">
+<textarea
+  id="content"
+  placeholder="Write complete article..."
+  required
+></textarea>
 
-    <h1>
-      Create Article
-    </h1>
+</div>
 
-    <a href="admin.html" class="back">
-      ← Dashboard
-    </a>
+<div class="row">
 
-  </div>
+<div class="field">
+<label>SEO Title</label>
 
+<input
+  id="seo_title"
+  type="text"
+  placeholder="SEO title"
+>
 
-  <div class="editor-layout">
+</div>
 
+<div class="field">
+<label>SEO Description</label>
 
-    <!-- ARTICLE -->
+<input
+  id="seo_description"
+  type="text"
+  placeholder="SEO description"
+>
 
-    <section class="box">
+</div>
 
-      <div class="box-title">
-        Article Details
-      </div>
+</div>
 
+<div class="actions">
 
-      <div class="field">
+<button
+  type="button"
+  class="draft"
+  onclick="saveArticle('draft')"
+>
+Save Draft
+</button>
 
-        <label>
-          Article Title
-        </label>
+<button
+  type="button"
+  class="publish"
+  onclick="saveArticle('published')"
+>
+Publish Article
+</button>
 
-        <input
-          type="text"
-          placeholder="Enter article title..."
-        >
+<button
+  type="button"
+  class="logout"
+  onclick="logoutAdmin()"
+>
+Logout
+</button>
 
-      </div>
+</div>
 
+<div id="message" class="message"></div>
 
-      <div class="field">
+</form>
 
-        <label>
-          URL Slug
-        </label>
+</div>
+</div>
 
-        <input
-          class="slug"
-          type="text"
-          placeholder="article-url-slug"
-        >
+<script>
 
-      </div>
+let currentUser = null;
 
 
-      <div class="field">
+// ================================
+// CHECK ADMIN
+// ================================
 
-        <label>
-          Short Description
-        </label>
+async function checkAdmin(){
 
-        <textarea
-          class="excerpt"
-          placeholder="Write a short description..."
-        ></textarea>
+  const {
+    data:{session}
+  } = await supabaseClient.auth.getSession();
 
-      </div>
+  if(!session){
 
+    window.location.href="admin-login.html";
+    return;
 
-      <div class="field">
+  }
 
-        <label>
-          Article Content
-        </label>
+  currentUser = session.user;
 
-        <textarea
-          placeholder="Write your cricket article here..."
-        ></textarea>
+  const {data:profile,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("role")
+      .eq("id",session.user.id)
+      .single();
 
-      </div>
+  if(error || !profile || profile.role !== "admin"){
 
+    await supabaseClient.auth.signOut();
 
-      <div class="actions">
+    window.location.href="admin-login.html";
+    return;
 
-        <button class="btn btn-light" type="button">
-          Save Draft
-        </button>
+  }
 
-        <button class="btn btn-green" type="button">
-          Preview
-        </button>
+  loadCategories();
 
-        <button class="btn btn-primary" type="button">
-          Publish Article
-        </button>
+}
 
-      </div>
 
-    </section>
+// ================================
+// LOAD CATEGORIES
+// ================================
 
+async function loadCategories(){
 
-    <!-- SETTINGS -->
+  const select =
+    document.getElementById("category");
 
-    <aside>
+  const {data,error} =
+    await supabaseClient
+      .from("categories")
+      .select("id,name")
+      .order("name");
 
+  if(error){
 
-      <div class="box">
+    select.innerHTML =
+      '<option value="">Unable to load categories</option>';
 
-        <div class="box-title">
-          Publishing
-        </div>
+    console.error(error);
 
+    return;
 
-        <div class="field">
+  }
 
-          <label>
-            Category
-          </label>
+  select.innerHTML =
+    '<option value="">Select category</option>';
 
-          <select>
+  data.forEach(category => {
 
-            <option>
-              Cricket
-            </option>
+    const option =
+      document.createElement("option");
 
-            <option>
-              IPL
-            </option>
+    option.value = category.id;
+    option.textContent = category.name;
 
-            <option>
-              India
-            </option>
+    select.appendChild(option);
 
-            <option>
-              International
-            </option>
+  });
 
-            <option>
-              Players
-            </option>
+}
 
-            <option>
-              Records
-            </option>
 
-          </select>
+// ================================
+// SAVE ARTICLE
+// ================================
 
-        </div>
+async function saveArticle(status){
 
+  const title =
+    document.getElementById("title").value.trim();
 
-        <div class="field">
+  const category =
+    document.getElementById("category").value;
 
-          <label>
-            Author
-          </label>
+  const image_url =
+    document.getElementById("image_url").value.trim();
 
-          <input
-            type="text"
-            value="CRIXO"
-          >
+  const excerpt =
+    document.getElementById("excerpt").value.trim();
 
-        </div>
+  const content =
+    document.getElementById("content").value.trim();
 
+  const seo_title =
+    document.getElementById("seo_title").value.trim();
 
-        <div class="option">
+  const seo_description =
+    document.getElementById("seo_description").value.trim();
 
-          <span>
-            Featured Article
-          </span>
 
-          <label class="switch">
+  if(!title){
 
-            <input type="checkbox">
+    showMessage(
+      "Please enter article title.",
+      "error"
+    );
 
-            <span class="slider"></span>
+    return;
 
-          </label>
+  }
 
-        </div>
 
+  if(!category){
 
-        <div class="option">
+    showMessage(
+      "Please select a category.",
+      "error"
+    );
 
-          <span>
-            Allow Comments
-          </span>
+    return;
 
-          <label class="switch">
+  }
 
-            <input
-              type="checkbox"
-              checked
-            >
 
-            <span class="slider"></span>
+  if(!content){
 
-          </label>
+    showMessage(
+      "Please write article content.",
+      "error"
+    );
 
-        </div>
+    return;
 
+  }
 
-      </div>
 
+  const slug =
+    title
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g,"-")
+      .replace(/^-+|-+$/g,"");
 
-      <!-- IMAGE -->
 
-      <div class="box" style="margin-top:20px;">
+  const article = {
 
-        <div class="box-title">
-          Featured Image
-        </div>
+    title:title,
 
+    slug:slug,
 
-        <label class="image-upload">
+    category_id:category,
 
-          <input
-            type="file"
-            accept="image/*"
-          >
+    image_url:image_url || null,
 
-          <div class="image-icon">
-            🖼️
-          </div>
+    excerpt:excerpt || null,
 
-          <strong>
-            Upload Image
-          </strong>
+    content:content,
 
-          <p>
-            JPG, PNG or WEBP
-          </p>
+    status:status,
 
-        </label>
+    seo_title:seo_title || title,
 
-      </div>
+    seo_description:
+      seo_description || excerpt || null,
 
+    author_id:currentUser.id
 
-    </aside>
+  };
 
 
-  </div>
+  const {error} =
+    await supabaseClient
+      .from("articles")
+      .insert(article);
 
 
-  <!-- SEO -->
+  if(error){
 
-  <section class="box seo-box">
+    console.error(error);
 
-    <div class="box-title">
-      🔎 SEO Settings
-    </div>
+    showMessage(
+      "Article save failed: " + error.message,
+      "error"
+    );
 
+    return;
 
-    <div class="field">
+  }
 
-      <label>
-        Meta Title
-      </label>
 
-      <input
-        type="text"
-        maxlength="60"
-        placeholder="SEO title..."
-      >
+  showMessage(
+    status === "published"
+      ? "✅ Article published successfully!"
+      : "✅ Article saved as draft!",
+    "success"
+  );
 
-      <div class="counter">
-        Recommended: 50–60 characters
-      </div>
 
-    </div>
+  document.getElementById("articleForm").reset();
 
+}
 
-    <div class="field">
 
-      <label>
-        Meta Description
-      </label>
+// ================================
+// MESSAGE
+// ================================
 
-      <textarea
-        class="excerpt"
-        maxlength="160"
-        placeholder="SEO description..."
-      ></textarea>
+function showMessage(text,type){
 
-      <div class="counter">
-        Recommended: 140–160 characters
-      </div>
+  const box =
+    document.getElementById("message");
 
-    </div>
+  box.textContent = text;
 
+  box.className =
+    "message " + type;
 
-    <div class="field">
+}
 
-      <label>
-        SEO Keywords
-      </label>
 
-      <input
-        type="text"
-        placeholder="cricket news, IPL, cricket scores..."
-      >
+// ================================
+// LOGOUT
+// ================================
 
-    </div>
+async function logoutAdmin(){
 
-  </section>
+  await supabaseClient.auth.signOut();
 
+  window.location.href="admin-login.html";
 
-</main>
+}
+
+
+// START
+checkAdmin();
+
+</script>
 
 </body>
 </html>
